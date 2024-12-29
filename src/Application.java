@@ -1,3 +1,4 @@
+import analytics.Analytics;
 import managers.ActivityManager;
 import managers.MealManager;
 import managers.UserManager;
@@ -21,8 +22,9 @@ public class Application {
             System.out.println("\n1. Add User");
             System.out.println("2. Log Activity");
             System.out.println("3. Log Meal");
-            System.out.println("4.View Progress");
+            System.out.println("4. View Progress");
             System.out.println("5. Exit");
+            System.out.println("6. View Analytics");
             System.out.println("Choose an option: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -37,6 +39,7 @@ public class Application {
                     System.out.println("Good bye!");
                     return;
                 }
+                case 6 -> viewAnalytics();
                 default -> System.out.println("Invalid choice. Try again");
             }
         }
@@ -118,6 +121,24 @@ public class Application {
         System.out.println("\nProgress for " + username + ":");
         System.out.println("BMI: " + user.calculateBMI());
         System.out.println("Meals: " + mealManager.getMeals().size());
+    }
+
+    private static void viewAnalytics(){
+        System.out.println("Enter username: ");
+        String username = scanner.nextLine();
+        User user = userManager.getUser(username);
+        if(user == null){
+            System.out.println("User not found");
+            return;
+        }
+
+        Analytics analytics = new Analytics(activityManager, mealManager);
+
+        System.out.println("\nAnalytics for " + username + ":");
+        System.out.println("Total calories burned: " + analytics.calculateTotalCaloriesBurned());
+        System.out.println("Total calories consumed: " + analytics.calculateTotalCaloriesConsumed());
+        System.out.println("Average calories burned per activity: " + analytics.calculateAvCaloriesBurnedPerActivity());
+        System.out.println("Average calories consumed per meal: " + analytics.calculateAVCaloriesConsumedPerMeal());
     }
 
     private static void loadUsers(){
