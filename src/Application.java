@@ -69,6 +69,7 @@ public class Application {
 
         if(user == null){
             System.out.println("User not found");
+            return;
         }
 
         System.out.println("Enter activity type (ex: Running): ");
