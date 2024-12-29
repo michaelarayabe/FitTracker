@@ -1,7 +1,9 @@
 import analytics.Analytics;
 import managers.ActivityManager;
+import managers.GoalManager;
 import managers.MealManager;
 import managers.UserManager;
+import models.Goal;
 import models.User;
 import persistence.DataStore;
 
@@ -11,6 +13,7 @@ public class Application {
     private static UserManager userManager = new UserManager();
     private static ActivityManager activityManager = new ActivityManager();
     private static MealManager mealManager = new MealManager();
+    private static GoalManager goalManager = new GoalManager();
     private static Scanner scanner = new Scanner(System.in);
 
 
@@ -25,6 +28,8 @@ public class Application {
             System.out.println("4. View Progress");
             System.out.println("5. Exit");
             System.out.println("6. View Analytics");
+            System.out.println("7. Set Goal");
+            System.out.println("8. Check Goal");
             System.out.println("Choose an option: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -40,6 +45,8 @@ public class Application {
                     return;
                 }
                 case 6 -> viewAnalytics();
+                case 7 -> setGoal();
+                case 8 -> checkGoal();
                 default -> System.out.println("Invalid choice. Try again");
             }
         }
@@ -88,6 +95,13 @@ public class Application {
     }
 
     private static void logMeal(){
+        System.out.println("Enter username: ");
+        String username = scanner.nextLine();
+        User user = userManager.getUser(username);
+        if(user == null){
+            System.out.println("User not found");
+            return;
+        }
         System.out.println("Enter meal name: ");
         String name = scanner.nextLine();
 
@@ -139,6 +153,47 @@ public class Application {
         System.out.println("Total calories consumed: " + analytics.calculateTotalCaloriesConsumed());
         System.out.println("Average calories burned per activity: " + analytics.calculateAvCaloriesBurnedPerActivity());
         System.out.println("Average calories consumed per meal: " + analytics.calculateAVCaloriesConsumedPerMeal());
+    }
+
+    private static void setGoal(){
+        System.out.println("Enter username: ");
+        String username = scanner.nextLine();
+
+        User user = userManager.getUser(username);
+        if(user == null){
+            System.out.println("User not found");
+            return;
+        }
+        System.out.println("Enter goal description: ");
+        String description = scanner.nextLine();
+
+        System.out.println("Enter target calories: ");
+        int targetCalories = scanner.nextInt();
+
+        Goal goal = new Goal(description, targetCalories);
+        goalManager.setGoals(username, goal);
+
+        System.out.println("Goal is set successfully!");
+    }
+
+    private static void checkGoal(){
+        System.out.println("Enter username: ");
+        String username = scanner.nextLine();
+        User user = userManager.getUser(username);
+        if(user == null){
+            System.out.println("User not found");
+            return;
+        }
+        Goal goal = goalManager.getGoal(username);
+
+        if(goal == null){
+            System.out.println("No goal is set for this user.");
+            return;
+        }
+
+        System.out.println("Goal: " + goal.getDescription());
+        System.out.println("Progress: " + goal.getCurrentProgress() + " / " + goal.getTargetCalories());
+        System.out.println("Achieved: " + goal.isGoalAchieved());
     }
 
     private static void loadUsers(){
