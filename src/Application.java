@@ -153,6 +153,8 @@ public class Application {
         System.out.println("Total calories consumed: " + analytics.calculateTotalCaloriesConsumed());
         System.out.println("Average calories burned per activity: " + analytics.calculateAvCaloriesBurnedPerActivity());
         System.out.println("Average calories consumed per meal: " + analytics.calculateAVCaloriesConsumedPerMeal());
+
+        analytics.displayCaloriesGraph();
     }
 
     private static void setGoal(){

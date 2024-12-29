@@ -45,4 +45,22 @@ public class Analytics {
         }
         return calculateTotalCaloriesConsumed() / meals.size();
     }
+
+    public void displayCaloriesGraph(){
+        double burned = calculateTotalCaloriesBurned();
+        double consumed = calculateTotalCaloriesConsumed();
+
+        System.out.println("Calories graph: ");
+        System.out.println("Burned: ");
+        for(int i = 0; i < burned/10; i++){
+            System.out.print("|");
+        }
+            System.out.println(" " + burned);
+
+        System.out.println("Consumed: ");
+        for(int i = 0; i < consumed / 10; i++){
+            System.out.print("|");
+        }
+        System.out.println(" " + consumed);
+    }
 }
