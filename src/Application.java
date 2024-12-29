@@ -113,7 +113,7 @@ public class Application {
             System.out.println("User not found!");
         }
 
-        System.out.println("\nProgresll for " + username + ":");
+        System.out.println("\nProgress for " + username + ":");
         System.out.println("BMI: " + user.calculateBMI());
         System.out.println("Meals: " + mealManager.getMeals().size());
     }
