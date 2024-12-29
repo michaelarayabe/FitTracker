@@ -18,4 +18,8 @@ public class UserManager {
     public User getUser(String username){
         return users.get(username);
     }
+
+    public HashMap<String, User> getUsers() {
+        return users;
+    }
 }
