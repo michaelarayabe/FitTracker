@@ -111,6 +111,7 @@ public class Application {
 
         if(user == null){
             System.out.println("User not found!");
+            return;
         }
 
         System.out.println("\nProgress for " + username + ":");
