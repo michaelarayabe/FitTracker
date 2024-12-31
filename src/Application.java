@@ -90,7 +90,8 @@ public class Application {
 
         System.out.println("Enter calories burned: ");
         double caloriesBurned = scanner.nextDouble();
-
+        Goal goal = goalManager.getGoal(username);
+        goal.updateProgress(caloriesBurned);
         activityManager.logActivity(type, duration, caloriesBurned);
     }
 
