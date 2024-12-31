@@ -196,7 +196,11 @@ public class Application {
 
         System.out.println("Goal: " + goal.getDescription());
         System.out.println("Progress: " + goal.getCurrentProgress() + " / " + goal.getTargetCalories());
-        System.out.println("Achieved: " + goal.isGoalAchieved());
+        if(goal.isGoalAchieved()){
+            System.out.println("Congrats " + username +". Goal has been achieved!");
+        } else {
+            System.out.println("Not yet! Need to burn " + (goal.getTargetCalories() - goal.getCurrentProgress()) + " Calories");
+        }
     }
 
     private static void loadUsers(){
